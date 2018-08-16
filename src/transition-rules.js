@@ -1,15 +1,20 @@
 module.exports = {
-  original: ({ isAlive, liveNeighborsCount }) => {
+  original: ({
+    isAlive,
+    liveNeighborsCount: { horizontalAndVertical, diagonal },
+  }) => {
+    const allLiveNeighborsCount = horizontalAndVertical + diagonal
+
     if (isAlive) {
-      if (liveNeighborsCount < 2) {
+      if (allLiveNeighborsCount < 2) {
         return 0
-      } else if (liveNeighborsCount > 3) {
+      } else if (allLiveNeighborsCount > 3) {
         return 0
       } else {
         return 1
       }
     } else {
-      if (liveNeighborsCount === 3) {
+      if (allLiveNeighborsCount === 3) {
         return 1
       } else {
         return 0
@@ -17,15 +22,20 @@ module.exports = {
     }
   },
 
-  infected: ({ isAlive, liveNeighborsCount, liveHorizontalNeighborsCount }) => {
+  infected: ({
+    isAlive,
+    liveNeighborsCount: { horizontalAndVertical, diagonal },
+  }) => {
+    const allLiveNeighborsCount = horizontalAndVertical + diagonal
+
     if (isAlive) {
-      if (liveHorizontalNeighborsCount === 0) {
+      if (horizontalAndVertical === 0) {
         return 0
       } else {
         return 1
       }
     } else {
-      if (liveNeighborsCount === 1) {
+      if (allLiveNeighborsCount === 1) {
         return 1
       } else {
         return 0

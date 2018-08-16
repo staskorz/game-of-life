@@ -4,31 +4,61 @@ describe("transition-rules", () => {
   describe("original", () => {
     it("correctly kills a live cell that has 1 live neighbor", () => {
       expect(
-        transitionRules.original({ isAlive: 1, liveNeighborsCount: 1 }),
+        transitionRules.original({
+          isAlive: 1,
+          liveNeighborsCount: {
+            horizontalAndVertical: 1,
+            diagonal: 0,
+          },
+        }),
       ).toBe(0)
     })
 
     it("correctly keeps a live cell alive if it has 2 live neighbors", () => {
       expect(
-        transitionRules.original({ isAlive: 1, liveNeighborsCount: 2 }),
+        transitionRules.original({
+          isAlive: 1,
+          liveNeighborsCount: {
+            horizontalAndVertical: 1,
+            diagonal: 1,
+          },
+        }),
       ).toBe(1)
     })
 
     it("correctly kills a live cell that has 4 live neighbors", () => {
       expect(
-        transitionRules.original({ isAlive: 1, liveNeighborsCount: 4 }),
+        transitionRules.original({
+          isAlive: 1,
+          liveNeighborsCount: {
+            horizontalAndVertical: 2,
+            diagonal: 2,
+          },
+        }),
       ).toBe(0)
     })
 
     it("correctly revives a dead cell that has 3 live neighbors", () => {
       expect(
-        transitionRules.original({ isAlive: 0, liveNeighborsCount: 3 }),
+        transitionRules.original({
+          isAlive: 0,
+          liveNeighborsCount: {
+            horizontalAndVertical: 1,
+            diagonal: 2,
+          },
+        }),
       ).toBe(1)
     })
 
     it("correctly leaves a dead cell as is if it has 2 live neighbors", () => {
       expect(
-        transitionRules.original({ isAlive: 0, liveNeighborsCount: 2 }),
+        transitionRules.original({
+          isAlive: 0,
+          liveNeighborsCount: {
+            horizontalAndVertical: 2,
+            diagonal: 0,
+          },
+        }),
       ).toBe(0)
     })
   })
@@ -38,8 +68,10 @@ describe("transition-rules", () => {
       expect(
         transitionRules.infected({
           isAlive: 0,
-          liveNeighborsCount: 1,
-          liveHorizontalNeighborsCount: null,
+          liveNeighborsCount: {
+            horizontalAndVertical: 1,
+            diagonal: 0,
+          },
         }),
       ).toBe(1)
     })
@@ -48,16 +80,20 @@ describe("transition-rules", () => {
       expect(
         transitionRules.infected({
           isAlive: 0,
-          liveNeighborsCount: 0,
-          liveHorizontalNeighborsCount: null,
+          liveNeighborsCount: {
+            horizontalAndVertical: 0,
+            diagonal: 0,
+          },
         }),
       ).toBe(0)
 
       expect(
         transitionRules.infected({
           isAlive: 0,
-          liveNeighborsCount: 2,
-          liveHorizontalNeighborsCount: null,
+          liveNeighborsCount: {
+            horizontalAndVertical: 1,
+            diagonal: 1,
+          },
         }),
       ).toBe(0)
     })
@@ -66,8 +102,10 @@ describe("transition-rules", () => {
       expect(
         transitionRules.infected({
           isAlive: 1,
-          liveNeighborsCount: null,
-          liveHorizontalNeighborsCount: 0,
+          liveNeighborsCount: {
+            horizontalAndVertical: 0,
+            diagonal: 2,
+          },
         }),
       ).toBe(0)
     })
@@ -76,8 +114,10 @@ describe("transition-rules", () => {
       expect(
         transitionRules.infected({
           isAlive: 1,
-          liveNeighborsCount: null,
-          liveHorizontalNeighborsCount: 1,
+          liveNeighborsCount: {
+            horizontalAndVertical: 2,
+            diagonal: 0,
+          },
         }),
       ).toBe(1)
     })
