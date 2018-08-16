@@ -1,4 +1,4 @@
-module.exports = ({ grid, fn }) => {
+module.exports = ({ grid, cellTransformationFn }) => {
   const height = grid.length
   const width = grid[0].length
   const processedGrid = []
@@ -7,7 +7,7 @@ module.exports = ({ grid, fn }) => {
     processedGrid.push([])
 
     for (let x = 0; x < width; x++) {
-      processedGrid[y].push(fn({ grid, x, y }))
+      processedGrid[y].push(cellTransformationFn({ grid, x, y }))
     }
   }
 

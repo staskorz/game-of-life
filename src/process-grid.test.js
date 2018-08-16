@@ -6,7 +6,7 @@ describe("process-grid", () => {
   it("correctly processes grid", () => {
     const processedGrid = processGrid({
       grid,
-      fn: ({ grid, x, y }) => (grid[y][x] === 1 ? 0 : 1),
+      cellTransformationFn: ({ grid, x, y }) => (grid[y][x] === 1 ? 0 : 1),
     })
 
     expect(processedGrid[0][0]).toBe(1)
