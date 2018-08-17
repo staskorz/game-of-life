@@ -27,11 +27,4 @@ describe("count-live-neighbors", () => {
       diagonal: 1,
     })
   })
-
-  it("correctly counts horizontal and vertical live neighbors at (1, 2)", () => {
-    expect(countLiveNeighbors({ grid, x: 1, y: 2 })).toEqual({
-      horizontalAndVertical: 2,
-      diagonal: 1,
-    })
-  })
 })
